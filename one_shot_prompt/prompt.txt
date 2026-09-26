@@ -1,0 +1,191 @@
+Atue como um enfermeiro responsável pela elaboração da escala mensal de uma equipe de enfermagem.
+
+Sua tarefa é gerar uma escala para OUTUBRO DE 2026, considerando as regras e profissionais abaixo.
+
+## PROFISSIONAIS
+
+[
+{
+"nome": "Enfermeiro 1",
+"jornada_semanal_horas": 40,
+"saldo_banco_horas": 0
+},
+{
+"nome": "Enfermeiro 2",
+"jornada_semanal_horas": 40,
+"saldo_banco_horas": -5
+},
+{
+"nome": "Enfermeiro 3",
+"jornada_semanal_horas": 40,
+"saldo_banco_horas": 3
+},
+{
+"nome": "Enfermeiro 4",
+"jornada_semanal_horas": 40,
+"saldo_banco_horas": -7
+},
+{
+"nome": "Enfermeiro ",
+"jornada_semanal_horas": 30,
+"saldo_banco_horas": 0
+}
+]
+
+## FUNCIONAMENTO
+
+* O serviço funciona de segunda a sexta-feira.
+* Horário de funcionamento: 07:00 às 20:00.
+* Durante TODO o período de funcionamento devem existir simultaneamente pelo menos 3 profissionais.
+* As três posições obrigatórias são:
+
+  1. "triagem"
+  2. "medicacao"
+  3. "atendimento"
+
+* Cada uma dessas posições deve estar ocupada por exatamente um profissional durante todo o horário de funcionamento.
+* Um profissional não pode ocupar duas posições simultaneamente.
+* Considere que o intervalo para refeição NÃO faz parte das horas trabalhadas.
+* Não faça horas extras, exceto quando forem necessárias para compensação de banco de horas e isso for explicitamente identificado.
+* Não ultrapasse a jornada semanal contratual sem justificar o motivo.
+* Procure distribuir os horários, posições e folgas de maneira equilibrada.
+* Evite colocar sempre os mesmos profissionais na abertura ou no fechamento.
+* Não invente restrições individuais que não foram informadas.
+
+## BANCO DE HORAS
+
+Os saldos informados representam o banco de horas existente antes do início de outubro.
+
+* Saldo positivo significa horas que o funcionário possui para compensar.
+* Saldo negativo significa horas que o funcionário precisa compensar.
+* Sempre que possível, considere esses saldos na elaboração da escala.
+* Não considere o saldo de banco de horas como horas adicionais disponíveis para criar cobertura que não existe.
+
+## REGRAS DE VALIDAÇÃO
+
+Antes de montar a escala, calcule:
+
+1. Quantas horas de cobertura são necessárias por dia.
+2. Quantas horas de cobertura são necessárias por semana.
+3. Quantas horas semanais estão disponíveis considerando as jornadas dos profissionais.
+4. Se existe déficit ou excedente de horas.
+5. Se é matematicamente possível manter as três posições ocupadas das 07:00 às 20:00.
+6. Se não for possível, NÃO invente horas para resolver o problema.
+
+Caso a cobertura integral seja impossível, monte a melhor escala possível respeitando as jornadas e informe exatamente:
+
+* quantidade de horas descobertas;
+* datas dos períodos descobertos;
+* posição que ficará descoberta;
+* motivo da impossibilidade;
+* quantidade de horas adicionais necessárias para eliminar o déficit.
+
+## REGRAS DE ESCALA
+
+* Distribua os profissionais entre triagem, medicação e atendimento.
+* Uma pessoa pode trabalhar em posições diferentes em dias diferentes.
+* Sempre que possível, alterne as posições entre os profissionais.
+* Mantenha a carga semanal de cada profissional compatível com sua jornada.
+* Não coloque um profissional em dois turnos simultâneos.
+* Os horários de entrada e saída devem permitir que as três posições estejam cobertas.
+* Considere todos os dias úteis de outubro de 2026.
+* Caso o último dia útil do mês não complete uma semana, trate-o separadamente.
+* Não considere feriados como dias de trabalho, salvo se isso for explicitamente informado.
+* Para qualquer decisão necessária que não esteja especificada, adote a opção mais conservadora e registre a premissa.
+
+## SAÍDA
+
+Retorne SOMENTE um JSON válido.
+
+Não utilize Markdown.
+Não utilize ```json.
+Não inclua comentários fora do JSON.
+Não inclua explicações antes ou depois do JSON.
+
+Utilize exatamente esta estrutura:
+
+{
+"mes": "2026-10",
+"premissas": [
+"..."
+],
+"analise": {
+"horas_cobertura_por_dia": 0,
+"horas_cobertura_por_semana": 0,
+"horas_disponiveis_por_semana": 0,
+"deficit_ou_excedente_semanal": 0,
+"cobertura_integral_possivel": false,
+"horas_adicionais_necessarias_por_semana": 0
+},
+"escala": [
+{
+"data": "2026-10-01",
+"dia_semana": "quinta-feira",
+"profissionais": [
+{
+"nome": "Enfermeiro 1",
+"posicao": "triagem",
+"entrada": "07:00",
+"saida": "13:00",
+"horas_trabalhadas": 6
+},
+{
+"nome": "Enfermeiro 2",
+"posicao": "medicacao",
+"entrada": "07:00",
+"saida": "15:00",
+"horas_trabalhadas": 8
+},
+{
+"nome": "Enfermeiro 3",
+"posicao": "atendimento",
+"entrada": "12:00",
+"saida": "20:00",
+"horas_trabalhadas": 8
+}
+],
+"cobertura": {
+"triagem": true,
+"medicacao": true,
+"atendimento": true,
+"cobertura_completa": true
+}
+}
+],
+"resumo_profissionais": [
+{
+"nome": "Enfermeiro 1",
+"jornada_semanal": 30,
+"saldo_inicial_banco_horas": 0,
+"horas_escaladas": 0,
+"horas_compensadas": 0,
+"saldo_final_banco_horas": 0
+}
+],
+"periodos_descobertos": [
+{
+"data": "YYYY-MM-DD",
+"inicio": "HH:MM",
+"fim": "HH:MM",
+"posicao": "triagem",
+"motivo": "..."
+}
+],
+"necessidade_de_horas_adicionais": {
+"necessario": false,
+"horas_por_semana": 0,
+"observacao": "..."
+}
+}
+
+## REGRAS IMPORTANTES PARA O JSON
+
+* Todos os valores numéricos devem ser números, não strings.
+* Horários devem utilizar o formato HH:MM.
+* Datas devem utilizar o formato YYYY-MM-DD.
+* "cobertura_completa" só pode ser true quando triagem, medicação e atendimento estiverem efetivamente cobertos durante todo o período de funcionamento.
+* "horas_escaladas" deve representar as horas efetivamente colocadas na escala.
+* "saldo_final_banco_horas" deve considerar o saldo inicial e as horas utilizadas ou compensadas.
+* Não omita períodos descobertos.
+* Se a escala ideal for matematicamente impossível, preserve essa informação no JSON em vez de tentar mascarar o déficit.
+* O JSON deve ser sintaticamente válido e diretamente processável por um programa.
